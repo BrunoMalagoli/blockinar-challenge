@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import NavBar from "../../components/NavBar";
 import getRooms from "../../services/Rooms";
-import DataTable from "./components/DataTable";
+import RoomDataTable from "./components/RoomDataTable";
 import DataContext from "../../contexts/DataContext/DataContext";
 const MainPage = () => {
   //Setting rooms data on MainPage mount
@@ -14,7 +14,7 @@ const MainPage = () => {
   return (
     <>
       <NavBar />
-      <DataTable />
+      <RoomDataTable />
     </>
   );
 };
