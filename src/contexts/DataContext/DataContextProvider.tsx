@@ -4,8 +4,16 @@ import { useState } from "react";
 
 const DataContextProvider = ({ children }: { children: ReactJSXElement }) => {
   const [allRoomsData, setAllRoomsData] = useState(undefined);
+  const [allBookingsData, setAllBookingsData] = useState(undefined);
   return (
-    <DataContext.Provider value={{ allRoomsData, setAllRoomsData }}>
+    <DataContext.Provider
+      value={{
+        allRoomsData,
+        setAllRoomsData,
+        allBookingsData,
+        setAllBookingsData,
+      }}
+    >
       {children}
     </DataContext.Provider>
   );

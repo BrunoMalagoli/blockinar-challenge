@@ -3,9 +3,8 @@ import DataContextProvider from "./contexts/DataContext/DataContextProvider";
 import { lazy, Suspense } from "react";
 import { Stack, CircularProgress } from "@mui/material";
 import { Route, Routes, useLocation } from "react-router-dom";
-import NavBar from "./components/NavBar";
-import BookingsPage from "./pages/BookingsPage";
 const MainPage = lazy(() => import("./pages/MainPage"));
+const BookingsPage = lazy(() => import("./pages/BookingsPage"));
 function App() {
   const location = useLocation();
   return (
