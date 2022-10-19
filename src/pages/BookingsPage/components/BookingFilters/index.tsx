@@ -2,7 +2,7 @@ import { Box, Stack, TextField } from "@mui/material";
 
 const BookingFilters = () => {
   return (
-    <Stack marginTop={"2%"} height={{ xs: "40vh", sm: "12vh" }}>
+    <Stack marginTop={"2%"} height={{ xs: "25vh", sm: "12vh" }}>
       <Stack
         justifyContent={"space-evenly"}
         flexWrap={"wrap"}
@@ -30,7 +30,7 @@ const BookingFilters = () => {
         <Box
           marginTop={{ xs: "2%", sm: "0%" }}
           textAlign={"center"}
-          width={{ xs: "100%", sm: "20%" }}
+          width={{ xs: "100%", sm: "15%" }}
         >
           <TextField
             type={"date"}

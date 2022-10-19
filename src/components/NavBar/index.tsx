@@ -33,8 +33,8 @@ const NavBar = () => {
         justifyContent={"space-between"}
         width={{ sm: "20%", md: "50%" }}
       >
-        <IconButton onClick={handleClick}>
-          <MenuIcon color={"success"} />
+        <IconButton size="large" onClick={handleClick}>
+          <MenuIcon fontSize="large" color={"success"} />
         </IconButton>
         <SwipeableDrawer
           anchor="left"
