@@ -13,6 +13,7 @@ import {
 import { useContext } from "react";
 import DataContext from "../../../../contexts/DataContext/DataContext";
 import { bookingItemType } from "../../types";
+import DefaultBookingRow from "./DefaultBookingRow";
 const BookingsTable = () => {
   const { allBookingsData } = useContext(DataContext);
   return (
@@ -36,18 +37,7 @@ const BookingsTable = () => {
               <TableBody>
                 {allBookingsData.map((bookingItem: bookingItemType) => {
                   return (
-                    <TableRow>
-                      <TableCell>{bookingItem.id}</TableCell>
-                      <TableCell>{bookingItem.room_id}</TableCell>
-                      <TableCell>
-                        `{bookingItem.last_name},{bookingItem.first_name}`
-                      </TableCell>
-                      <TableCell>{bookingItem.number_of_guests}</TableCell>
-                      <TableCell>{bookingItem.booking_status}</TableCell>
-                      <TableCell>{bookingItem.check_in_date}</TableCell>
-                      <TableCell>{bookingItem.check_out_date}</TableCell>
-                      <TableCell>{bookingItem.price_per_night}</TableCell>
-                    </TableRow>
+                    <DefaultBookingRow key={bookingItem.id} {...bookingItem} />
                   );
                 })}
               </TableBody>
