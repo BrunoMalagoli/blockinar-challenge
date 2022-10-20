@@ -9,3 +9,9 @@ export type bookingItemType = {
   price_per_night: number;
   room_id: number;
 };
+
+export type filterValuesType = {
+  idFilter: number;
+  lastNameFilter: string;
+  dateFilter: string;
+};

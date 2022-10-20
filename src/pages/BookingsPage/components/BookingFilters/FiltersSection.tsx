@@ -35,6 +35,11 @@ const FiltersSection = () => {
 
   function handleClick() {
     setApplyFilters(!applyFilters);
+    if (applyFilters) {
+      setBookingIdFilter("");
+      setBookingDateFilter("");
+      setBookingLastnameFilter("");
+    }
   }
   return (
     <Stack height={{ xs: "25vh", sm: "25vh" }}>
@@ -86,7 +91,7 @@ const FiltersSection = () => {
             type={"date"}
             id="dateFilter"
             disabled={applyFilters ? true : false}
-            value={bookingDateFilter}
+            value={bookingDateFilter === null ? "" : bookingDateFilter}
             onChange={(e) => handleChange(e)}
             placeholder="DD/MM/YYYY"
             label={"Check-in Date"}

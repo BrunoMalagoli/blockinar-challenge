@@ -3,14 +3,15 @@ import FilterContext from "./FilterContext";
 import { useState } from "react";
 
 const FilterContextProvider = ({ children }: { children: ReactJSXElement }) => {
-  const [boookingIdFilter, setBookingIdFilter] = useState();
+  const [bookingIdFilter, setBookingIdFilter] = useState("");
   const [bookingLastnameFilter, setBookingLastnameFilter] = useState("");
   const [bookingDateFilter, setBookingDateFilter] = useState("");
   const [applyFilters, setApplyFilters] = useState(false);
+  const [filteredArray, setFilteredArray] = useState([]);
   return (
     <FilterContext.Provider
       value={{
-        boookingIdFilter,
+        bookingIdFilter,
         setBookingIdFilter,
         bookingLastnameFilter,
         setBookingLastnameFilter,
@@ -18,6 +19,8 @@ const FilterContextProvider = ({ children }: { children: ReactJSXElement }) => {
         setBookingDateFilter,
         applyFilters,
         setApplyFilters,
+        filteredArray,
+        setFilteredArray,
       }}
     >
       {children}
