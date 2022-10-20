@@ -14,6 +14,10 @@ import { useContext, useState } from "react";
 import DataContext from "../../../../contexts/DataContext/DataContext";
 import { bookingItemType } from "../../types";
 import DefaultBookingRow from "./DefaultBookingRow";
+import styles from "./styles/BookingsTable.module.css";
+import TextDecreaseIcon from "@mui/icons-material/TextDecrease";
+import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
+
 const BookingsTable = () => {
   const { allBookingsData } = useContext(DataContext);
   const [orderedAlphabetic, setOrderedAlphabetic] = useState(false);
@@ -37,7 +41,19 @@ const BookingsTable = () => {
                 <TableRow>
                   <TableCell>Booking-Id:</TableCell>
                   <TableCell>Room-Id:</TableCell>
-                  <TableCell onClick={handleClick}>Guest</TableCell>
+                  <TableCell
+                    className={styles.guestRowHeader}
+                    onClick={handleClick}
+                  >
+                    <Stack flexDirection={"row"} gap={2} alignItems={"center"}>
+                      Guest
+                      {orderedAlphabetic ? (
+                        <TextDecreaseIcon />
+                      ) : (
+                        <SortByAlphaIcon />
+                      )}
+                    </Stack>
+                  </TableCell>
                   <TableCell>Guest N°</TableCell>
                   <TableCell>Status:</TableCell>
                   <TableCell>Check-In:</TableCell>
