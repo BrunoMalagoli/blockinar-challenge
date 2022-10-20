@@ -27,16 +27,36 @@ const RoomDataTable = () => {
               <TableCell>Category:</TableCell>
               <TableCell>Ocuppancy:</TableCell>
               <TableCell>Max-Occupancy:</TableCell>
+              <TableCell>Status:</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {allRoomsData.map((item: roomItem) => {
+              item.status =
+                item.occupancy == item.max_occupancy
+                  ? "Full"
+                  : item.occupancy > 0
+                  ? "Ocuppied"
+                  : "Free";
               return (
                 <TableRow key={item.id}>
                   <TableCell>{item.id}</TableCell>
                   <TableCell>{item.category}</TableCell>
                   <TableCell>{item.occupancy}</TableCell>
                   <TableCell>{item.max_occupancy}</TableCell>
+                  <TableCell>
+                    <Box
+                      bgcolor={
+                        item.status == "Full"
+                          ? "#f79683"
+                          : item.status == "Ocuppied"
+                          ? "#fbff8f"
+                          : "#abfc95"
+                      }
+                    >
+                      {item.status}
+                    </Box>
+                  </TableCell>
                 </TableRow>
               );
             })}

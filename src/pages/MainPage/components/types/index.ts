@@ -3,4 +3,5 @@ export type roomItem = {
   id: number;
   max_occupancy: number;
   occupancy: number;
+  status?: string;
 };
