@@ -8,6 +8,7 @@ export type bookingItemType = {
   number_of_guests: number;
   price_per_night: number;
   room_id: number;
+  room_category?: string;
 };
 
 export type filterValuesType = {

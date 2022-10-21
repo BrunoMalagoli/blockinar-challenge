@@ -1,6 +1,6 @@
 import { Box, Button, Stack, TextField } from "@mui/material";
 import { ChangeEvent, useContext } from "react";
-import FilterContext from "../../../../contexts/FilterContext/FilterContext";
+import FilterContext from "../../../../../contexts/FilterContext/FilterContext";
 const FiltersSection = () => {
   const {
     bookingIdFilter,

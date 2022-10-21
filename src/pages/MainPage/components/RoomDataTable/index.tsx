@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { useContext } from "react";
+import LoaderSpinner from "../../../../components/LoaderSpinner";
 import DataContext from "../../../../contexts/DataContext/DataContext";
 import { roomItem } from "../types";
 
@@ -65,14 +66,7 @@ const RoomDataTable = () => {
       </TableContainer>
     </Box>
   ) : (
-    <Stack
-      height={"100vh"}
-      width={"100%"}
-      alignItems={"center"}
-      justifyContent={"center"}
-    >
-      <CircularProgress />
-    </Stack>
+    <LoaderSpinner />
   );
 };
 

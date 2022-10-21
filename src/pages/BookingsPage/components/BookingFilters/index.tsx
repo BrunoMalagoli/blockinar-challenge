@@ -5,7 +5,7 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import FiltersSection from "./FiltersSection";
+import FiltersSection from "./components/FiltersSection";
 const BookingFilters = () => {
   return (
     <Accordion>

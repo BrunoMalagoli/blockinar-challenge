@@ -1,7 +1,10 @@
 import {
   Box,
-  CircularProgress,
+  FormControl,
+  MenuItem,
   Paper,
+  Select,
+  SelectChangeEvent,
   Stack,
   Table,
   TableBody,
@@ -13,13 +16,14 @@ import {
 import { useContext, useEffect, useState } from "react";
 import DataContext from "../../../../contexts/DataContext/DataContext";
 import { bookingItemType } from "../../types";
-import DefaultBookingRow from "./DefaultBookingRow";
+import DefaultBookingRow from "./components/DefaultBookingRow";
 import styles from "./styles/BookingsTable.module.css";
 import TextDecreaseIcon from "@mui/icons-material/TextDecrease";
 import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
 import FilterContext from "../../../../contexts/FilterContext/FilterContext";
 import filterBookingData from "../../../../utils/FilterBookingData";
-import BookingsFilteredTable from "./BookingsFilteredTable";
+import BookingsFilteredTable from "./components/BookingsFilteredTable";
+import LoaderSpinner from "../../../../components/LoaderSpinner";
 
 const BookingsTable = () => {
   const { allBookingsData } = useContext(DataContext);
@@ -32,7 +36,7 @@ const BookingsTable = () => {
   } = useContext(FilterContext);
   const [orderedAlphabetic, setOrderedAlphabetic] = useState(false);
   const [orderedArray, setOrderedArray] = useState([]);
-
+  const [orderedByRoom, setOrderedByRoom] = useState("");
   useEffect(() => {
     let filterValues = {
       idFilter: Math.floor(bookingIdFilter),
@@ -54,6 +58,9 @@ const BookingsTable = () => {
       })
     );
   }
+  function handleRoomFilterChange(event: SelectChangeEvent<string>) {
+    setOrderedByRoom(event.target.value);
+  }
   return (
     <>
       {applyFilters ? (
@@ -65,7 +72,27 @@ const BookingsTable = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Booking-Id:</TableCell>
-                  <TableCell>Room-Id:</TableCell>
+                  <TableCell>
+                    <Stack alignItems={"center"} flexDirection={"row"}>
+                      <Box>Rooms:</Box>
+                      <FormControl size="small">
+                        <Select
+                          value={orderedByRoom}
+                          onChange={handleRoomFilterChange}
+                        >
+                          <MenuItem value={""}>All</MenuItem>
+                          <MenuItem value={"Confort"}>Confort</MenuItem>
+                          <MenuItem value={"JuniorSuite"}>
+                            Junior Suite
+                          </MenuItem>
+                          <MenuItem value={"SeniorSuite"}>
+                            Senior Suite
+                          </MenuItem>
+                          <MenuItem value={"Superior"}>Superior</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Stack>
+                  </TableCell>
                   <TableCell
                     className={styles.guestRowHeader}
                     onClick={handleClick}
@@ -109,14 +136,7 @@ const BookingsTable = () => {
           </TableContainer>
         </Box>
       ) : (
-        <Stack
-          height={"100vh"}
-          width={"100%"}
-          alignItems={"center"}
-          justifyContent={"center"}
-        >
-          <CircularProgress />
-        </Stack>
+        <LoaderSpinner />
       )}
     </>
   );

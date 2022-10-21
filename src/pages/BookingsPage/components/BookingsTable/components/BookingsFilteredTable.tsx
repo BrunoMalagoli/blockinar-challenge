@@ -1,6 +1,5 @@
 import {
   Box,
-  CircularProgress,
   Paper,
   Stack,
   Table,
@@ -11,12 +10,13 @@ import {
   TableRow,
 } from "@mui/material";
 import { useContext, useState } from "react";
-import FilterContext from "../../../../contexts/FilterContext/FilterContext";
-import { bookingItemType } from "../../types";
+import FilterContext from "../../../../../contexts/FilterContext/FilterContext";
+import { bookingItemType } from "../../../types";
 import DefaultBookingRow from "./DefaultBookingRow";
 import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
 import TextDecreaseIcon from "@mui/icons-material/TextDecrease";
-import styles from "./styles/BookingsTable.module.css";
+import styles from "../styles/BookingsTable.module.css";
+import LoaderSpinner from "../../../../../components/LoaderSpinner";
 const BookingsFilteredTable = () => {
   const { filteredArray } = useContext(FilterContext);
   const [orderedAlphabetic, setOrderedAlphabetic] = useState(false);
@@ -84,14 +84,7 @@ const BookingsFilteredTable = () => {
           </TableContainer>
         </Box>
       ) : (
-        <Stack
-          height={"100vh"}
-          width={"100%"}
-          alignItems={"center"}
-          justifyContent={"center"}
-        >
-          <CircularProgress />
-        </Stack>
+        <LoaderSpinner />
       )}
     </>
   );
