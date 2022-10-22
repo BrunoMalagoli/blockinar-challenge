@@ -10,7 +10,6 @@ const BookingsPage = () => {
   useEffect(() => {
     getBookings().then((bookings) => {
       setAllBookingsData(bookings);
-      console.log(bookings);
     });
   }, []);
   return (

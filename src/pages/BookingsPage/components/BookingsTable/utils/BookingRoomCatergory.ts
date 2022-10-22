@@ -14,7 +14,7 @@ export default function getRoomCategory(bookingItemRoomId: number) {
       category = "Senior Suite";
       break;
     default:
-      category = "Room non existent";
+      category = "Room not assigned";
       break;
   }
   return category;

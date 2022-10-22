@@ -24,6 +24,9 @@ import FilterContext from "../../../../contexts/FilterContext/FilterContext";
 import filterBookingData from "../../../../utils/FilterBookingData";
 import BookingsFilteredTable from "./components/BookingsFilteredTable";
 import LoaderSpinner from "../../../../components/LoaderSpinner";
+import filterRooms from "./utils/FilterRooms";
+import TableOptContext from "../../../../contexts/TableOptContext/TableOptContext";
+import useAlphFilter from "../../../../hooks/useAlphFilter";
 
 const BookingsTable = () => {
   const { allBookingsData } = useContext(DataContext);
@@ -34,9 +37,14 @@ const BookingsTable = () => {
     bookingDateFilter,
     setFilteredArray,
   } = useContext(FilterContext);
-  const [orderedAlphabetic, setOrderedAlphabetic] = useState(false);
-  const [orderedArray, setOrderedArray] = useState([]);
-  const [orderedByRoom, setOrderedByRoom] = useState("");
+  const {
+    orderedByRoom,
+    setOrderedByRoom,
+    orderedAlphabetic,
+    setOrderedAlphabetic,
+  } = useContext(TableOptContext);
+  const { orderedArray } = useAlphFilter();
+  const [roomsArray, setRoomsArray] = useState<bookingItemType[]>([]);
   useEffect(() => {
     let filterValues = {
       idFilter: Math.floor(bookingIdFilter),
@@ -48,18 +56,18 @@ const BookingsTable = () => {
       let response = filterBookingData(allBookingsData, filterValues);
       response.then((res) => setFilteredArray(res));
     }
-  }, [applyFilters]);
+    if (orderedByRoom.length > 1) {
+      setRoomsArray(filterRooms(allBookingsData, orderedByRoom));
+    }
+  }, [orderedByRoom]);
+
   function handleClick() {
     setOrderedAlphabetic(!orderedAlphabetic);
-    //Using Slice method to get a copy of the array and order it without mutating original array
-    setOrderedArray(
-      allBookingsData.slice().sort((a: bookingItemType, b: bookingItemType) => {
-        return a.last_name.localeCompare(b.last_name);
-      })
-    );
   }
   function handleRoomFilterChange(event: SelectChangeEvent<string>) {
-    setOrderedByRoom(event.target.value);
+    let selectedRoomFilter = event.target.value;
+    setOrderedByRoom(selectedRoomFilter);
+    console.log(selectedRoomFilter);
   }
   return (
     <>
@@ -80,12 +88,12 @@ const BookingsTable = () => {
                           value={orderedByRoom}
                           onChange={handleRoomFilterChange}
                         >
-                          <MenuItem value={""}>All</MenuItem>
+                          <MenuItem value={"All"}>All</MenuItem>
                           <MenuItem value={"Confort"}>Confort</MenuItem>
-                          <MenuItem value={"JuniorSuite"}>
+                          <MenuItem value={"Junior Suite"}>
                             Junior Suite
                           </MenuItem>
-                          <MenuItem value={"SeniorSuite"}>
+                          <MenuItem value={"Senior Suite"}>
                             Senior Suite
                           </MenuItem>
                           <MenuItem value={"Superior"}>Superior</MenuItem>
@@ -115,7 +123,18 @@ const BookingsTable = () => {
               </TableHead>
               <TableBody>
                 {orderedAlphabetic
-                  ? orderedArray.map((bookingItem: bookingItemType) => {
+                  ? orderedArray
+                    ? orderedArray.map((bookingItem: bookingItemType) => {
+                        return (
+                          <DefaultBookingRow
+                            key={bookingItem.id}
+                            {...bookingItem}
+                          />
+                        );
+                      })
+                    : null
+                  : orderedByRoom.length > 1
+                  ? roomsArray?.map((bookingItem: bookingItemType) => {
                       return (
                         <DefaultBookingRow
                           key={bookingItem.id}
