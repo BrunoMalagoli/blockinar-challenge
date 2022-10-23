@@ -18,15 +18,12 @@ const FiltersSection = () => {
   ) {
     switch (event.target.id) {
       case "idFilter":
-        console.log(event.target.value);
         setBookingIdFilter(event.target.value);
         break;
       case "lastnameFilter":
-        console.log(event.target.value);
         setBookingLastnameFilter(event.target.value);
         break;
       case "dateFilter":
-        console.log(event.target.value);
         setBookingDateFilter(event.target.value);
         break;
       default:

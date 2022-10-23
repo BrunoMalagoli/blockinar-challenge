@@ -1,7 +1,7 @@
 import { IconButton, Stack, SwipeableDrawer } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import MainPage from "../../pages/MainPage/index";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
@@ -25,7 +25,9 @@ const NavBar = () => {
       flexDirection={"row-reverse"}
     >
       <Box paddingRight={"5%"} height={"20%"}>
-        <img height={"100%"} alt="Blockinar Logo" src="/blockinar.png" />
+        <Link to={"/"}>
+          <img height={"100%"} alt="Blockinar Logo" src="/blockinar.png" />
+        </Link>
       </Box>
       <Stack
         flexDirection={"row"}

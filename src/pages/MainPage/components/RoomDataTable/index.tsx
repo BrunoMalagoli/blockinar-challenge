@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   CircularProgress,
   Paper,
   Stack,
@@ -14,12 +15,32 @@ import { useContext } from "react";
 import LoaderSpinner from "../../../../components/LoaderSpinner";
 import DataContext from "../../../../contexts/DataContext/DataContext";
 import { roomItem } from "../types";
-
+import { utils, writeFile } from "xlsx";
+import DownloadIcon from "@mui/icons-material/Download";
 const RoomDataTable = () => {
   const { allRoomsData } = useContext(DataContext);
   console.log(allRoomsData);
+  function downloadExcel() {
+    const workSheet = utils.json_to_sheet(allRoomsData);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "rooms");
+    writeFile(workBook, "BlockinarRooms.xlsx");
+  }
   return allRoomsData ? (
     <Box>
+      <Stack marginY={"1%"} flexDirection={"row"} justifyContent={"center"}>
+        <Box width={{ xs: "40%", sm: "35%", md: "25%" }}>
+          <Button
+            onClick={downloadExcel}
+            color="success"
+            fullWidth
+            variant="contained"
+            endIcon={<DownloadIcon />}
+          >
+            Download as Excel
+          </Button>
+        </Box>
+      </Stack>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
