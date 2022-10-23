@@ -43,7 +43,7 @@ const BookingsTable = () => {
     orderedAlphabetic,
     setOrderedAlphabetic,
   } = useContext(TableOptContext);
-  const { orderedArray } = useAlphFilter();
+  const { memoizedSortedArray } = useAlphFilter();
   const [roomsArray, setRoomsArray] = useState<bookingItemType[]>([]);
   useEffect(() => {
     let filterValues = {
@@ -51,29 +51,29 @@ const BookingsTable = () => {
       lastNameFilter: bookingLastnameFilter,
       dateFilter: bookingDateFilter,
     };
-    console.log(filterValues);
     if (applyFilters == true) {
       let response = filterBookingData(allBookingsData, filterValues);
-      response.then((res) => setFilteredArray(res));
+      response.then((res) => {
+        setFilteredArray(res);
+      });
     }
     if (orderedByRoom.length > 1) {
       setRoomsArray(filterRooms(allBookingsData, orderedByRoom));
     }
-  }, [orderedByRoom]);
+  }, [orderedByRoom, applyFilters]);
 
   function handleClick() {
     setOrderedAlphabetic(!orderedAlphabetic);
+    setOrderedByRoom("All");
   }
   function handleRoomFilterChange(event: SelectChangeEvent<string>) {
     let selectedRoomFilter = event.target.value;
     setOrderedByRoom(selectedRoomFilter);
-    console.log(selectedRoomFilter);
+    setOrderedAlphabetic(false);
   }
   return (
     <>
-      {applyFilters ? (
-        <BookingsFilteredTable />
-      ) : allBookingsData ? (
+      {allBookingsData ? (
         <Box>
           <TableContainer component={Paper}>
             <Table>
@@ -97,6 +97,9 @@ const BookingsTable = () => {
                             Senior Suite
                           </MenuItem>
                           <MenuItem value={"Superior"}>Superior</MenuItem>
+                          <MenuItem value={"Room not assigned"}>
+                            Not Assigned
+                          </MenuItem>
                         </Select>
                       </FormControl>
                     </Stack>
@@ -122,9 +125,22 @@ const BookingsTable = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {orderedAlphabetic
-                  ? orderedArray
-                    ? orderedArray.map((bookingItem: bookingItemType) => {
+                <BookingsFilteredTable>
+                  {orderedAlphabetic
+                    ? memoizedSortedArray
+                      ? memoizedSortedArray.map(
+                          (bookingItem: bookingItemType) => {
+                            return (
+                              <DefaultBookingRow
+                                key={bookingItem.id}
+                                {...bookingItem}
+                              />
+                            );
+                          }
+                        )
+                      : null
+                    : orderedByRoom.length > 1
+                    ? roomsArray?.map((bookingItem: bookingItemType) => {
                         return (
                           <DefaultBookingRow
                             key={bookingItem.id}
@@ -132,24 +148,15 @@ const BookingsTable = () => {
                           />
                         );
                       })
-                    : null
-                  : orderedByRoom.length > 1
-                  ? roomsArray?.map((bookingItem: bookingItemType) => {
-                      return (
-                        <DefaultBookingRow
-                          key={bookingItem.id}
-                          {...bookingItem}
-                        />
-                      );
-                    })
-                  : allBookingsData.map((bookingItem: bookingItemType) => {
-                      return (
-                        <DefaultBookingRow
-                          key={bookingItem.id}
-                          {...bookingItem}
-                        />
-                      );
-                    })}
+                    : allBookingsData.map((bookingItem: bookingItemType) => {
+                        return (
+                          <DefaultBookingRow
+                            key={bookingItem.id}
+                            {...bookingItem}
+                          />
+                        );
+                      })}
+                </BookingsFilteredTable>
               </TableBody>
             </Table>
           </TableContainer>

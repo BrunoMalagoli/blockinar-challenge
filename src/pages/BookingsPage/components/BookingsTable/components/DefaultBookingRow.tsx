@@ -1,6 +1,6 @@
 import { Box, TableCell, TableRow } from "@mui/material";
 import { bookingItemType } from "../../../types/index";
-import getRoomCategory from "../utils/BookingRoomCatergory";
+import getRoomCategory from "../utils/BookingRoomCategory";
 
 const DefaultBookingRow = (bookingItem: bookingItemType) => {
   let roomCategory = getRoomCategory(bookingItem.room_id);

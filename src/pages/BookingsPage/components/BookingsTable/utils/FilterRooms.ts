@@ -1,5 +1,5 @@
 import { bookingItemType } from "../../../types/index";
-import getRoomCategory from "./BookingRoomCatergory";
+import getRoomCategory from "./BookingRoomCategory";
 export default function filterRooms(
   roomsArray: bookingItemType[],
   roomFilter: string
