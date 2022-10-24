@@ -13,7 +13,6 @@ export default async function filterBookingData(
       let arrayById = await newArray.filter((bookingItem: bookingItemType) => {
         return bookingItem.id === filterValues.idFilter;
       });
-      console.log(arrayById);
       newArray = arrayById;
       if (filterValues.lastNameFilter.length > 1) {
         let arrayByLastname = await newArray.filter(
@@ -49,7 +48,6 @@ export default async function filterBookingData(
       }
       //Date filter values check
     } else if (filterValues.dateFilter.length > 1) {
-      console.log(filterValues.dateFilter);
       let arrayByDate = await newArray.filter(
         (bookingItem: bookingItemType) => {
           let date = bookingItem.check_in_date.split("T");

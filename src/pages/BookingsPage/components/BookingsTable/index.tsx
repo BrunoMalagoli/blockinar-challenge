@@ -13,7 +13,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import DataContext from "../../../../contexts/DataContext/DataContext";
 import { bookingItemType } from "../../types";
 import DefaultBookingRow from "./components/DefaultBookingRow";
@@ -24,7 +24,6 @@ import FilterContext from "../../../../contexts/FilterContext/FilterContext";
 import filterBookingData from "../../../../utils/FilterBookingData";
 import BookingsFilteredTable from "./components/BookingsFilteredTable";
 import LoaderSpinner from "../../../../components/LoaderSpinner";
-import filterRooms from "./utils/FilterRooms";
 import TableOptContext from "../../../../contexts/TableOptContext/TableOptContext";
 import useAlphFilter from "../../../../hooks/useAlphFilter";
 import getRoomCategory from "./utils/BookingRoomCategory";
@@ -45,8 +44,8 @@ const BookingsTable = () => {
     orderedAlphabetic,
     setOrderedAlphabetic,
   } = useContext(TableOptContext);
+  const { memoizedRoomArray } = useRoomFilter();
   const { memoizedSortedArray } = useAlphFilter();
-  const { memoizedRoomArray } = useRoomFilter(allBookingsData);
   useEffect(() => {
     let filterValues = {
       idFilter: Math.floor(bookingIdFilter),
@@ -161,18 +160,20 @@ const BookingsTable = () => {
                     : orderedByRoom.length > 1
                     ? orderedAlphabetic
                       ? memoizedRoomArray
-                          .slice()
-                          .sort((a: bookingItemType, b: bookingItemType) => {
-                            return a.last_name.localeCompare(b.last_name);
-                          })
-                          .map((bookingItem: bookingItemType) => {
-                            return (
-                              <DefaultBookingRow
-                                key={bookingItem.id}
-                                {...bookingItem}
-                              />
-                            );
-                          })
+                        ? memoizedRoomArray
+                            .slice()
+                            .sort((a: bookingItemType, b: bookingItemType) => {
+                              return a.last_name.localeCompare(b.last_name);
+                            })
+                            .map((bookingItem: bookingItemType) => {
+                              return (
+                                <DefaultBookingRow
+                                  key={bookingItem.id}
+                                  {...bookingItem}
+                                />
+                              );
+                            })
+                        : null
                       : memoizedRoomArray?.map(
                           (bookingItem: bookingItemType) => {
                             return (

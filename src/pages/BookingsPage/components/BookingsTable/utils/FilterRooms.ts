@@ -4,14 +4,17 @@ export default function filterRooms(
   roomsArray: bookingItemType[],
   roomFilter: string
 ) {
-  if (roomFilter == "All") {
+  if (roomFilter == "All" || roomFilter.length < 1) {
     return roomsArray;
   } else {
-    return roomsArray.filter((bookingItem: bookingItemType) => {
-      let roomCategory = getRoomCategory(bookingItem.room_id);
-      return bookingItem.room_category
-        ? bookingItem.room_category
-        : roomCategory == roomFilter;
-    });
+    let filteredArray = roomsArray
+      ? roomsArray.filter((bookingItem: bookingItemType) => {
+          let roomCategory = getRoomCategory(bookingItem.room_id);
+          return bookingItem.room_category
+            ? bookingItem.room_category
+            : roomCategory == roomFilter;
+        })
+      : null;
+    return filteredArray;
   }
 }
