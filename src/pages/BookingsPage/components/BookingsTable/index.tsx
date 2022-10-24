@@ -27,6 +27,8 @@ import LoaderSpinner from "../../../../components/LoaderSpinner";
 import filterRooms from "./utils/FilterRooms";
 import TableOptContext from "../../../../contexts/TableOptContext/TableOptContext";
 import useAlphFilter from "../../../../hooks/useAlphFilter";
+import getRoomCategory from "./utils/BookingRoomCategory";
+import useRoomFilter from "../../../../hooks/useRoomFilter";
 
 const BookingsTable = () => {
   const { allBookingsData } = useContext(DataContext);
@@ -44,7 +46,7 @@ const BookingsTable = () => {
     setOrderedAlphabetic,
   } = useContext(TableOptContext);
   const { memoizedSortedArray } = useAlphFilter();
-  const [roomsArray, setRoomsArray] = useState<bookingItemType[]>([]);
+  const { memoizedRoomArray } = useRoomFilter(allBookingsData);
   useEffect(() => {
     let filterValues = {
       idFilter: Math.floor(bookingIdFilter),
@@ -57,19 +59,14 @@ const BookingsTable = () => {
         setFilteredArray(res);
       });
     }
-    if (orderedByRoom.length > 1) {
-      setRoomsArray(filterRooms(allBookingsData, orderedByRoom));
-    }
   }, [orderedByRoom, applyFilters]);
 
   function handleClick() {
     setOrderedAlphabetic(!orderedAlphabetic);
-    setOrderedByRoom("All");
   }
   function handleRoomFilterChange(event: SelectChangeEvent<string>) {
     let selectedRoomFilter = event.target.value;
     setOrderedByRoom(selectedRoomFilter);
-    setOrderedAlphabetic(false);
   }
   return (
     <>
@@ -127,8 +124,53 @@ const BookingsTable = () => {
               <TableBody>
                 <BookingsFilteredTable>
                   {orderedAlphabetic
-                    ? memoizedSortedArray
-                      ? memoizedSortedArray.map(
+                    ? orderedByRoom.length > 1
+                      ? memoizedSortedArray
+                        ? memoizedSortedArray
+                            .slice()
+                            .filter((bookingItem: bookingItemType) => {
+                              let roomCategory = getRoomCategory(
+                                bookingItem.room_id
+                              );
+                              return bookingItem.room_category
+                                ? bookingItem.room_category
+                                : roomCategory == orderedByRoom;
+                            })
+                            .map((bookingItem: bookingItemType) => {
+                              return (
+                                <DefaultBookingRow
+                                  key={bookingItem.id}
+                                  {...bookingItem}
+                                />
+                              );
+                            })
+                        : memoizedSortedArray.map(
+                            (bookingItem: bookingItemType) => {
+                              return (
+                                <DefaultBookingRow
+                                  key={bookingItem.id}
+                                  {...bookingItem}
+                                />
+                              );
+                            }
+                          )
+                      : null
+                    : orderedByRoom.length > 1
+                    ? orderedAlphabetic
+                      ? memoizedRoomArray
+                          .slice()
+                          .sort((a: bookingItemType, b: bookingItemType) => {
+                            return a.last_name.localeCompare(b.last_name);
+                          })
+                          .map((bookingItem: bookingItemType) => {
+                            return (
+                              <DefaultBookingRow
+                                key={bookingItem.id}
+                                {...bookingItem}
+                              />
+                            );
+                          })
+                      : memoizedRoomArray?.map(
                           (bookingItem: bookingItemType) => {
                             return (
                               <DefaultBookingRow
@@ -138,16 +180,6 @@ const BookingsTable = () => {
                             );
                           }
                         )
-                      : null
-                    : orderedByRoom.length > 1
-                    ? roomsArray?.map((bookingItem: bookingItemType) => {
-                        return (
-                          <DefaultBookingRow
-                            key={bookingItem.id}
-                            {...bookingItem}
-                          />
-                        );
-                      })
                     : allBookingsData.map((bookingItem: bookingItemType) => {
                         return (
                           <DefaultBookingRow
