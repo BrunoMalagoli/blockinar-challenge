@@ -132,6 +132,9 @@ const BookingsTable = () => {
                               let roomCategory = getRoomCategory(
                                 bookingItem.room_id
                               );
+                              if (orderedByRoom == "All") {
+                                return bookingItem;
+                              }
                               return bookingItem.room_category
                                 ? bookingItem.room_category
                                 : roomCategory == orderedByRoom;
