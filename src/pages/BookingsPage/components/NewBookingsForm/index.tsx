@@ -1,4 +1,4 @@
-import { Box, Button, Modal, Stack, Typography } from "@mui/material";
+import { Box, Button, Modal, Stack } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import AddBookingForm from "./components/AddBookingForm";

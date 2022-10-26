@@ -156,7 +156,16 @@ const BookingsTable = () => {
                               );
                             }
                           )
-                      : null
+                      : memoizedSortedArray.map(
+                          (bookingItem: bookingItemType) => {
+                            return (
+                              <DefaultBookingRow
+                                key={bookingItem.id}
+                                {...bookingItem}
+                              />
+                            );
+                          }
+                        )
                     : orderedByRoom.length > 1
                     ? orderedAlphabetic
                       ? memoizedRoomArray

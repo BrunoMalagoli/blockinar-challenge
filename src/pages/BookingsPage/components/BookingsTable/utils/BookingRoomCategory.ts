@@ -13,6 +13,8 @@ export default function getRoomCategory(bookingItemRoomId: number) {
     case bookingItemRoomId > 9:
       category = "Senior Suite";
       break;
+    case bookingItemRoomId === null:
+      category = "Room not assigned";
     default:
       category = "Room not assigned";
       break;
