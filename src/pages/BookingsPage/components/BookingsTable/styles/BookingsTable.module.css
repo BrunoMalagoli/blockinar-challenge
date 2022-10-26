@@ -1,0 +1,4 @@
+.guestRowHeader:hover{
+    cursor: pointer;
+    background-color: rgb(200, 200, 200);
+}

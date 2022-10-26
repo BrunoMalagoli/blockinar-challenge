@@ -1,0 +1,21 @@
+.activeClass{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #00FF99;
+    text-decoration: none;
+    color: black;
+    height: 40px;
+    text-align: center;
+    width: 100%;
+}
+.inactiveClass{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    height: 40px;
+    text-align: center;
+    width: 100%;
+}
