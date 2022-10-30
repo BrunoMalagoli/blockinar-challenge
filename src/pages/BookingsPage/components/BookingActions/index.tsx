@@ -3,7 +3,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import AddBookingForm from "./components/AddBookingForm";
 import EditIcon from "@mui/icons-material/Edit";
-import EditBookingsModal from "./components/EditBookingsForm";
+import EditBookingsModal from "./components/EditBookingsModal";
 const BookingActions = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
@@ -56,7 +56,7 @@ const BookingActions = () => {
             width={{ xs: "100%", sm: "75%", md: "70%" }}
             bgcolor={"white"}
             borderRadius={"5px"}
-            height={"80%"}
+            height={"90%"}
           >
             <Stack height={"100%"}>
               <Stack

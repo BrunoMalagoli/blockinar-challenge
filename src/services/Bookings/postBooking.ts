@@ -1,4 +1,4 @@
-import { newBookingType } from "../types/index";
+import { newBookingType } from "../../pages/BookingsPage/components/BookingActions/types/index";
 export default async function postBooking(data: newBookingType) {
   const dataAdapted = {
     check_in_date: new Date(data.check_in_date)
@@ -12,9 +12,7 @@ export default async function postBooking(data: newBookingType) {
     number_of_guests: data.number_of_guests,
     price_per_night: data.price_per_night,
   };
-  console.log(dataAdapted);
   try {
-    console.log(JSON.stringify(dataAdapted));
     const response = await fetch(
       `${import.meta.env.VITE_URL_ENDPOINT_URL}/bookings/create`,
       {

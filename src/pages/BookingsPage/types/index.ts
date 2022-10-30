@@ -16,3 +16,15 @@ export type filterValuesType = {
   lastNameFilter: string;
   dateFilter: string;
 };
+
+export type updateBooking = {
+  check_in_date: string;
+  check_out_date: string;
+  first_name: string;
+  last_name: string;
+  number_of_guests: number;
+  price_per_night: number;
+  arrival_date: string;
+  booking_status: string;
+  room_id: number | string;
+};
