@@ -68,6 +68,14 @@ const NavBar = () => {
             >
               Bookings
             </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? styles.activeClass : styles.inactiveClass
+              }
+              to={"/statistics"}
+            >
+              Statistics
+            </NavLink>
           </Stack>
         </SwipeableDrawer>
       </Stack>
