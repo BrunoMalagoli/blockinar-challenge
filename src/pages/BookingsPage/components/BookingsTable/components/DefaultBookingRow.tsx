@@ -7,7 +7,9 @@ const DefaultBookingRow = (bookingItem: bookingItemType) => {
   return (
     <TableRow>
       <TableCell>{bookingItem.id}</TableCell>
-      <TableCell>{roomCategory}</TableCell>
+      <TableCell>
+        {roomCategory} {`(${bookingItem.room_id})`}
+      </TableCell>
       <TableCell>
         `{bookingItem.last_name},{bookingItem.first_name}`
       </TableCell>

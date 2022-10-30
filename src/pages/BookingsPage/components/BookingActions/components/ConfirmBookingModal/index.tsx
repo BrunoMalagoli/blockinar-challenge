@@ -12,7 +12,7 @@ import {
 import { newBookingType } from "../../types/index";
 import { FormEvent, useEffect, useState } from "react";
 import ModalTitle from "./components/ModalTitle";
-import postBooking from "../../utils/postBooking";
+import postBooking from "../../../../../../services/Bookings/postBooking";
 
 const ConfirmBookingModal = (bookingData: newBookingType) => {
   const [numNights, setNumNights] = useState(0);
