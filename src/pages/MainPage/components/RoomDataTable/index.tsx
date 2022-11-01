@@ -19,7 +19,6 @@ import { utils, writeFile } from "xlsx";
 import DownloadIcon from "@mui/icons-material/Download";
 const RoomDataTable = () => {
   const { allRoomsData } = useContext(DataContext);
-  console.log(allRoomsData);
   function downloadExcel() {
     const workSheet = utils.json_to_sheet(allRoomsData);
     const workBook = utils.book_new();
@@ -72,7 +71,7 @@ const RoomDataTable = () => {
                         item.status == "Full"
                           ? "#f79683"
                           : item.status == "Ocuppied"
-                          ? "#fbff8f"
+                          ? "#f79683"
                           : "#abfc95"
                       }
                     >

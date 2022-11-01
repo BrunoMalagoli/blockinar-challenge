@@ -51,13 +51,11 @@ export default async function filterBookingData(
       let arrayByDate = await newArray.filter(
         (bookingItem: bookingItemType) => {
           let date = bookingItem.check_in_date.split("T");
-          console.log(filterValues.dateFilter == date[0]);
           return filterValues.dateFilter == date[0];
         }
       );
       newArray = arrayByDate;
     }
-    console.log(newArray);
     return newArray;
   } catch (error) {
     console.log(error);

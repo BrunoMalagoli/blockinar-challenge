@@ -68,7 +68,6 @@ const EditBookingsForm = ({
         ) {
           setIsSameDate(true);
           let status = await dataUpdater(bookingID, values);
-          console.log(status);
           if (status === 200) {
             setIsSuccessFull(true);
             setIsOpen(true);

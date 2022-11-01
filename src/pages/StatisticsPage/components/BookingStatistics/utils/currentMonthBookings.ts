@@ -3,11 +3,10 @@ export default async function currentMonthBookings(
   bookings: bookingItemType[]
 ) {
   let bookingsByMonth = bookings.filter((booking) => {
-    let checkInMonth = new Date(booking.check_in_date)
-      .toISOString()
-      .slice(0, 7);
+    let checkInMonth = new Date(booking.check_in_date);
+    checkInMonth.setHours(checkInMonth.getHours() - 3);
     let currentMonth = new Date().toISOString().slice(0, 7);
-    return checkInMonth === currentMonth;
+    return checkInMonth.toISOString().slice(0, 7) === currentMonth;
   });
   return bookingsByMonth;
 }
