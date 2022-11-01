@@ -42,7 +42,6 @@ export default async function updateBookingById(
         body: JSON.stringify(dataAdapted),
       }
     );
-    console.log(dataAdapted);
     return response;
   } catch (error) {
     console.log(error);

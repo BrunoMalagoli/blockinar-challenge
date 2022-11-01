@@ -26,14 +26,14 @@ const BookingStatistics = () => {
     if (allBookingsData === undefined) {
       getBookings().then((res) => {
         currentMonthBookings(res).then(async (response) => {
-          setMonthBookings(response),
-            setBookingsNum(await bookingsPerDay(response));
+          setBookingsNum(await bookingsPerDay(response));
         });
       });
     } else {
-      currentMonthBookings(allBookingsData).then((response) =>
-        setMonthBookings(response)
-      );
+      currentMonthBookings(allBookingsData).then(async (response) => {
+        setMonthBookings(response),
+          setBookingsNum(await bookingsPerDay(response));
+      });
     }
   }, []);
   return (
@@ -71,7 +71,7 @@ const BookingStatistics = () => {
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey={"bookingDay"} />
-              <YAxis />
+              <YAxis type="number" domain={[0, 15]} />
               <Tooltip />
               <Legend />
               <Area
