@@ -15,13 +15,13 @@ import {
 } from "@mui/material";
 import { bookingItemType, updateBooking } from "../../../../../../types/index";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import { editBookingValidationSchema } from "../../../../utils/editBookingValidationSchema";
 import { useFormik } from "formik";
 import GroupIcon from "@mui/icons-material/Group";
+import { roomType } from "../../../../../../../MainPage/types/index";
 import { useState } from "react";
 import dataUpdater from "../../../../utils/dataUpdater";
 import checkIsSameDate from "../../../../utils/checkIsSameDate";
-import { editBookingValidationSchema } from "../../../../utils/editBookingValidationSchema";
-import { roomType } from "../../../../../../../MainPage/types/index";
 const EditBookingsForm = ({
   roomsData,
   bookingById,
@@ -58,7 +58,7 @@ const EditBookingsForm = ({
             setIsOpen(true);
             setIsLoading(false);
             setTimeout(() => {
-              location.reload();
+              //location.reload();
             }, 3000);
           } else {
             throw new Error();

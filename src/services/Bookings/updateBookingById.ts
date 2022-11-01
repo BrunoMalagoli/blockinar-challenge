@@ -10,6 +10,7 @@ async function adaptData(data: updateBooking) {
     checkInDate.setHours(checkInDate.getHours() - 3);
     let checkOutDate = new Date(data.check_out_date);
     checkOutDate.setHours(checkOutDate.getHours() - 3);
+    console.log(Date.parse(checkInDate.toISOString()));
     const dataAdapted = {
       check_in_date: checkInDate.toISOString().replace(".000Z", ""),
       check_out_date: checkOutDate.toISOString().replace(".000Z", ""),
